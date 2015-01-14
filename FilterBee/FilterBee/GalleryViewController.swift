@@ -10,6 +10,7 @@ import UIKit
 
 class GalleryViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
   var items = [UIImage]()
+  var delegate : ImageSelectedDelegate?
   var collectionView : UICollectionView!
   //MARK: ViewControl LifeCycle
   override func loadView() {
@@ -33,6 +34,7 @@ class GalleryViewController: UIViewController, UICollectionViewDelegate, UIColle
     super.viewDidLoad()
     self.collectionView.backgroundColor = UIColor.lightGrayColor()
     collectionView.dataSource = self
+    collectionView.delegate = self
     collectionView.registerClass(GalleryViewCell.self, forCellWithReuseIdentifier: "GALLERY_CELL")
     if let image1 = UIImage(named: "image1.jpeg"){
       items.append(image1)
@@ -66,6 +68,15 @@ class GalleryViewController: UIViewController, UICollectionViewDelegate, UIColle
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return self.items.count
   }
+  //MARK: CollectionViewDelegate
+  func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    // select the image
+    let selectedImage = items[indexPath.row]
+    delegate!.DelegatorDidSelectImage(selectedImage)
+    // go back to main view
+    self.navigationController?.popViewControllerAnimated(true)
+  }
+  
   //MARK: AutoLayout Constraints
   func setConstraintsOnRootView(rootview: UIView, forViews views : [String : AnyObject]){
     // collectionView constraints

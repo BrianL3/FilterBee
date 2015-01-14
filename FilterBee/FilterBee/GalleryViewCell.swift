@@ -15,7 +15,8 @@ class GalleryViewCell: UICollectionViewCell {
   override init(frame: CGRect) {
     super.init(frame: frame)
     self.addSubview(self.imageView)
-    self.backgroundColor = UIColor.whiteColor()
+    self.backgroundColor = UIColor.lightGrayColor()
+    imageView.contentMode = UIViewContentMode.ScaleAspectFill
     imageView.frame = self.bounds
     imageView.layer.masksToBounds = true
     imageView.layer.cornerRadius = 16.0
