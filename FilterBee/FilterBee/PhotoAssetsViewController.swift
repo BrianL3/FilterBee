@@ -14,6 +14,7 @@ class PhotoAssetsViewController : UIViewController, UICollectionViewDataSource, 
   var fetchArray : PHFetchResult!
   var assetCollection : PHAssetCollection!
   var imageManager = PHCachingImageManager()
+  var destinationImageSize : CGSize!
   
   var collectionView : UICollectionView!
   
@@ -24,8 +25,8 @@ class PhotoAssetsViewController : UIViewController, UICollectionViewDataSource, 
     
     let flowLayout = UICollectionViewFlowLayout()
     self.collectionView = UICollectionView(frame: rootView.bounds, collectionViewLayout: flowLayout)
-    flowLayout.estimatedItemSize = CGSize(width: 100.0, height: 100.0)
-    self.collectionView.backgroundColor = UIColor.darkGrayColor()
+    flowLayout.itemSize = CGSize(width: 100.0, height: 100.0)
+    self.collectionView.backgroundColor = UIColor.lightGrayColor()
     
     self.collectionView.setTranslatesAutoresizingMaskIntoConstraints(false)
     rootView.addSubview(collectionView)
@@ -63,7 +64,7 @@ class PhotoAssetsViewController : UIViewController, UICollectionViewDataSource, 
 //MARK: CollectionViewDelegate
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     let asset = fetchArray[indexPath.row] as PHAsset
-    self.imageManager.requestImageForAsset(asset, targetSize: CGSize(width: 100.0, height: 100.0), contentMode: PHImageContentMode.AspectFill, options: nil) { (requestedImage, info) -> Void in
+    self.imageManager.requestImageForAsset(asset, targetSize: destinationImageSize, contentMode: PHImageContentMode.AspectFill, options: nil) { (requestedImage, info) -> Void in
       self.delegate?.DelegatorDidSelectImage(requestedImage)
       self.navigationController?.popViewControllerAnimated(true)
     }

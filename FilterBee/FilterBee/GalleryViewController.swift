@@ -9,24 +9,36 @@
 import UIKit
 
 class GalleryViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+  
   var items = [UIImage]()
   var delegate : ImageSelectedDelegate?
   var collectionView : UICollectionView!
+  
+  var pinchRecognizer : UIPinchGestureRecognizer!
+  
   //MARK: ViewControl LifeCycle
   override func loadView() {
     let rootView = UIView(frame: UIScreen.mainScreen().bounds)
     let collectionViewFlowLayout = UICollectionViewFlowLayout()
+    
     // setting up the collection view
     self.collectionView = UICollectionView(frame: rootView.frame, collectionViewLayout: collectionViewFlowLayout)
     collectionView.setTranslatesAutoresizingMaskIntoConstraints(false)
     var views = ["collectionView" : collectionView]
     rootView.addSubview(self.collectionView)
     self.setConstraintsOnRootView(rootView, forViews: views)
+    
     // customizing the flow layout
     collectionViewFlowLayout.itemSize = CGSize(width: 260, height: 260)
-    collectionViewFlowLayout.scrollDirection = .Horizontal
+    collectionViewFlowLayout.scrollDirection = .Vertical
     collectionViewFlowLayout.minimumInteritemSpacing = 8.0
     collectionViewFlowLayout.minimumLineSpacing = 8.0
+    
+    // gesture recognizer setup
+    self.pinchRecognizer = UIPinchGestureRecognizer(target: self, action: "pinchGesture:")
+    rootView.addGestureRecognizer(pinchRecognizer)
+    
+    // final
     self.view = rootView
   }
   
@@ -55,6 +67,20 @@ class GalleryViewController: UIViewController, UICollectionViewDelegate, UIColle
       items.append(image6)
     }
     
+  }
+  
+  //MARK: Pinch Gesture
+  func pinchGesture(sender: UIPinchGestureRecognizer){
+    switch sender.state{
+    case .Began:
+      println("began pinch")
+    case .Changed:
+      println("changing")
+    case .Ended:
+      println("ended pinch")
+    default:
+      println("default case")
+    }
   }
 
   //MARK: CollectionViewDataSource

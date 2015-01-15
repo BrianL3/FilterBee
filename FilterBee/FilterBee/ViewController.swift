@@ -46,7 +46,7 @@ class ViewController: UIViewController, ImageSelectedDelegate, UICollectionViewD
   //MARK: ViewController Life Cycle
   override func loadView() {
     let rootView = UIView(frame: UIScreen.mainScreen().bounds)
-    rootView.backgroundColor = UIColor.grayColor()
+    rootView.backgroundColor = UIColor.lightGrayColor()
     
     // setting up the photobutton
     photoButton.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -168,6 +168,7 @@ class ViewController: UIViewController, ImageSelectedDelegate, UICollectionViewD
       let photoAssetVC = PhotoAssetsViewController()
       self.navigationController?.pushViewController(photoAssetVC, animated: true)
       photoAssetVC.delegate = self
+      photoAssetVC.destinationImageSize = self.currentImage.frame.size
     }
     self.alertController.addAction(photoAssetsOption)
   }
@@ -224,12 +225,14 @@ class ViewController: UIViewController, ImageSelectedDelegate, UICollectionViewD
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return self.filterNames.count
   }
+  
   //MARK: CollectionViewDelegate
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     let thumbnailAtRow = thumbnails[indexPath.row] as Thumbnail
     thumbnailAtRow.filterImage(thumbnailAtRow.originalImage, isThumbnail: false)
     self.currentImage.image = thumbnailAtRow.filteredImage?
     collectionView.reloadData()
+    
     self.navigationItem.rightBarButtonItem = self.doneButton
 
   }
@@ -241,17 +244,20 @@ class ViewController: UIViewController, ImageSelectedDelegate, UICollectionViewD
     rootview.addConstraints(photoButtonVerticalConstraint)
     let photoButtonConstraintHorizontal = NSLayoutConstraint(item: photoButton, attribute: .CenterX, relatedBy: .Equal, toItem: rootview, attribute: .CenterX, multiplier: 1.0, constant: 0.0)
     rootview.addConstraint(photoButtonConstraintHorizontal)
+    
     // photo constraints
     self.photoVerticalConstraint = NSLayoutConstraint.constraintsWithVisualFormat("V:|-72-[currentImage]-30-|", options: nil, metrics: nil, views: views)
     self.photoBottomConstraint = photoVerticalConstraint[1] as NSLayoutConstraint
     rootview.addConstraints(photoVerticalConstraint!)
     self.photoHorizontalConstraint = NSLayoutConstraint.constraintsWithVisualFormat("|[currentImage]|", options: nil, metrics: nil, views: views)
     rootview.addConstraints(photoHorizontalConstraint!)
+    
     // setting currentImage constraints
     currentImage.backgroundColor = UIColor.darkGrayColor()
     currentImage.contentMode = UIViewContentMode.ScaleAspectFill
     currentImage.layer.masksToBounds = true
     currentImage.layer.cornerRadius = 24.0
+    
     // collectionView constraints
     collectionView.backgroundColor = UIColor.lightGrayColor()
     let collectionViewConstraintsHorizontal = NSLayoutConstraint.constraintsWithVisualFormat("H:|[collectionView]|", options: nil, metrics: nil, views: views)
