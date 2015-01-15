@@ -16,7 +16,7 @@ protocol ImageSelectedDelegate{
 //MARK: Main ViewController
 class ViewController: UIViewController, ImageSelectedDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   
-  let alertController = UIAlertController(title: "FilterBee", message: "Choose a Photo to Filter", preferredStyle: UIAlertControllerStyle.ActionSheet)
+  let alertController = UIAlertController(title: NSLocalizedString("FilterBee", comment: "Title of the main menu"), message: NSLocalizedString("Choose an option", comment: "message of the main menu"), preferredStyle: UIAlertControllerStyle.ActionSheet)
   let photoButton = UIButton()
   var doneButton : UIBarButtonItem!
   var shareButton : UIBarButtonItem!
@@ -50,7 +50,7 @@ class ViewController: UIViewController, ImageSelectedDelegate, UICollectionViewD
     
     // setting up the photobutton
     photoButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-    photoButton.setTitle("Start", forState: .Normal)
+    photoButton.setTitle(NSLocalizedString("Start", comment: "Main button's title"), forState: .Normal)
     photoButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
     photoButton.addTarget(self, action: "photoButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
     rootView.addSubview(photoButton)
@@ -78,7 +78,7 @@ class ViewController: UIViewController, ImageSelectedDelegate, UICollectionViewD
     collectionView.registerClass(GalleryViewCell.self, forCellWithReuseIdentifier: "FILTER_CELL")
     
     //setting up navbar buttons
-    self.doneButton = UIBarButtonItem(title: "Done", style: .Done, target: self, action: "donePressed")
+    self.doneButton = UIBarButtonItem(title: NSLocalizedString("Done", comment: "navBar's done button"), style: .Done, target: self, action: "donePressed")
     self.shareButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "sharePressed")
     
     // adding the autolayout bits
@@ -136,14 +136,14 @@ class ViewController: UIViewController, ImageSelectedDelegate, UICollectionViewD
   
   //MARK: Button Actions
   func setUpMainButton(){
-    let galleryOption = UIAlertAction(title: "Gallery", style: UIAlertActionStyle.Default) { (action) -> Void in
+    let galleryOption = UIAlertAction(title: NSLocalizedString("Gallery", comment: "button option, takes user to the gallery of images that come with our app"), style: UIAlertActionStyle.Default) { (action) -> Void in
       let galleryVC = GalleryViewController()
       self.navigationController?.pushViewController(galleryVC, animated: true)
       galleryVC.delegate = self
     }
     self.alertController.addAction(galleryOption)
     
-    let filterOption = UIAlertAction(title: "Filter", style: .Default) { (action) -> Void in
+    let filterOption = UIAlertAction(title: NSLocalizedString("Filter", comment: "button option, pops up the view of image filter effects"), style: .Default) { (action) -> Void in
       self.collectionViewYConstraint?.constant = 0.0
       //self.photoVerticalConstraint? = NSLayoutConstraint.constraintsWithVisualFormat("V:|-72-[currentImage(\(self.view.frame.height * 0.7))]-\(self.view.frame.height * 0.2)-|", options: nil, metrics: nil, views: self.views)
       self.photoBottomConstraint.constant = self.view.frame.height * 0.2
@@ -153,18 +153,20 @@ class ViewController: UIViewController, ImageSelectedDelegate, UICollectionViewD
     }
     self.alertController.addAction(filterOption)
     
-    if UIImagePickerController.isSourceTypeAvailable(.Camera){
-      let photoOption = UIAlertAction(title: "Photo", style: .Default) { (action) -> Void in
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.sourceType = .Camera
-        imagePickerController.allowsEditing = true
-        imagePickerController.delegate = self
-        self.presentViewController(imagePickerController, animated: true, completion: nil)
-      }
-      self.alertController.addAction(photoOption)
+    let photoOption = UIAlertAction(title: NSLocalizedString("Photo", comment: "button option, allows the user to use the camera"), style: .Default) { (action) -> Void in
+      let imagePickerController = UIImagePickerController()
+      imagePickerController.sourceType = .Camera
+      imagePickerController.allowsEditing = true
+      imagePickerController.delegate = self
+      self.presentViewController(imagePickerController, animated: true, completion: nil)
     }
+      self.alertController.addAction(photoOption)
+    if !UIImagePickerController.isSourceTypeAvailable(.Camera){
+        photoOption.enabled = false
+      }
     
-    let photoAssetsOption = UIAlertAction(title: "Cloud", style: .Default) { (action) -> Void in
+    
+    let photoAssetsOption = UIAlertAction(title: NSLocalizedString("Cloud", comment: "button option, allows user access to cloud photos"), style: .Default) { (action) -> Void in
       let photoAssetVC = PhotoAssetsViewController()
       self.navigationController?.pushViewController(photoAssetVC, animated: true)
       photoAssetVC.delegate = self
@@ -192,8 +194,8 @@ class ViewController: UIViewController, ImageSelectedDelegate, UICollectionViewD
       self.TwitterComposeViewController.addImage(self.currentImage.image)
       self.presentViewController(self.TwitterComposeViewController, animated: true, completion: nil)
     }else{
-      let alert = UIAlertController(title: "Twitter Log-in Required", message: "To post to Twitter, you must log in to Twitter on this device and allow this app access to your Twitter account in Settings.  This app will not gather information about you, nor post to Twitter without your permission.", preferredStyle: UIAlertControllerStyle.Alert)
-      let okayAction = UIAlertAction(title: "Okay", style: .Cancel, handler: { (action) -> Void in
+      let alert = UIAlertController(title: NSLocalizedString("Twitter Log-in Required", comment: "title of alert when twitter not logged in"), message: NSLocalizedString("To post to Twitter, you must log in to Twitter on this device and allow this app access to your Twitter account in Settings.  This app will not gather information about you, nor post to Twitter without your permission.", comment: "message body warning user that twitter is not logged in"), preferredStyle: UIAlertControllerStyle.Alert)
+      let okayAction = UIAlertAction(title: NSLocalizedString("Okay", comment: "Acknowledgment that user must log in"), style: .Cancel, handler: { (action) -> Void in
         
         self.dismissViewControllerAnimated(true, completion: nil)
       })

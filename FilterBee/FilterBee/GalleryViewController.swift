@@ -14,12 +14,13 @@ class GalleryViewController: UIViewController, UICollectionViewDelegate, UIColle
   var delegate : ImageSelectedDelegate?
   var collectionView : UICollectionView!
   
+  let collectionViewFlowLayout = UICollectionViewFlowLayout()
+  
   var pinchRecognizer : UIPinchGestureRecognizer!
   
   //MARK: ViewControl LifeCycle
   override func loadView() {
     let rootView = UIView(frame: UIScreen.mainScreen().bounds)
-    let collectionViewFlowLayout = UICollectionViewFlowLayout()
     
     // setting up the collection view
     self.collectionView = UICollectionView(frame: rootView.frame, collectionViewLayout: collectionViewFlowLayout)
@@ -35,8 +36,7 @@ class GalleryViewController: UIViewController, UICollectionViewDelegate, UIColle
     collectionViewFlowLayout.minimumLineSpacing = 8.0
     
     // gesture recognizer setup
-    self.pinchRecognizer = UIPinchGestureRecognizer(target: self, action: "pinchGesture:")
-    rootView.addGestureRecognizer(pinchRecognizer)
+
     
     // final
     self.view = rootView
@@ -44,26 +44,31 @@ class GalleryViewController: UIViewController, UICollectionViewDelegate, UIColle
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    //set up pinch gesture
+    self.pinchRecognizer = UIPinchGestureRecognizer(target: self, action: "pinchGesture:")
+    collectionView.addGestureRecognizer(pinchRecognizer)
+    
     self.collectionView.backgroundColor = UIColor.lightGrayColor()
     collectionView.dataSource = self
     collectionView.delegate = self
     collectionView.registerClass(GalleryViewCell.self, forCellWithReuseIdentifier: "GALLERY_CELL")
-    if let image1 = UIImage(named: "image1.jpeg"){
+    if let image1 = UIImage(named: "boatsbig.jpeg"){
       items.append(image1)
     }
-    if let image2 = UIImage(named: "image2.jpeg"){
+    if let image2 = UIImage(named: "carbig.jpeg"){
       items.append(image2)
     }
-    if let image3 = UIImage(named: "image3.jpeg"){
+    if let image3 = UIImage(named: "bootbig.jpeg"){
       items.append(image3)
     }
-    if let image4 = UIImage(named: "image4.jpeg"){
+    if let image4 = UIImage(named: "oceanbig.jpeg"){
       items.append(image4)
     }
-    if let image5 = UIImage(named: "image5.jpeg"){
+    if let image5 = UIImage(named: "docksbig.jpeg"){
       items.append(image5)
     }
-    if let image6 = UIImage(named: "image6.jpeg"){
+    if let image6 = UIImage(named: "mistsbig.jpeg"){
       items.append(image6)
     }
     
@@ -71,6 +76,7 @@ class GalleryViewController: UIViewController, UICollectionViewDelegate, UIColle
   
   //MARK: Pinch Gesture
   func pinchGesture(sender: UIPinchGestureRecognizer){
+    
     switch sender.state{
     case .Began:
       println("began pinch")
@@ -78,6 +84,29 @@ class GalleryViewController: UIViewController, UICollectionViewDelegate, UIColle
       println("changing")
     case .Ended:
       println("ended pinch")
+      // if we are currently zoomed out, zoom in
+      if self.collectionViewFlowLayout.itemSize.height < 400.0 {
+        self.collectionView.performBatchUpdates({ () -> Void in
+          if sender.velocity > 0 {
+            //increase item size
+            let bigsize = CGSize(width: self.collectionViewFlowLayout.itemSize.width * 2, height: self.collectionViewFlowLayout.itemSize.height * 2)
+            self.collectionViewFlowLayout.itemSize = bigsize
+          }
+        }, completion: { (finished) -> Void in
+          // ??
+        })
+      }else if collectionViewFlowLayout.itemSize.height > 20.0 {
+        self.collectionView.performBatchUpdates({ () -> Void in
+            if sender.velocity < 0 {
+            let smallsize = CGSize(width: self.collectionViewFlowLayout.itemSize.width / 2, height: self.collectionViewFlowLayout.itemSize.height / 2)
+            self.collectionViewFlowLayout.itemSize = smallsize
+            //decrease item size
+          }
+          }, completion: { (finished) -> Void in
+            // ??
+        })
+
+      }
     default:
       println("default case")
     }

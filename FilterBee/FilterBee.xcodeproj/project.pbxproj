@@ -167,9 +167,9 @@
 			isa = PBXGroup;
 			children = (
 				FA2EE8F61A647104005D80B7 /* LaunchScreen.xib */,
-				FA8997EB1A647936007DF3EA /* 120px-Merovingian_Bee.svg.png */,
 				FA8997ED1A647945007DF3EA /* Stock-Images */,
 				FA2EE8F41A647104005D80B7 /* Images.xcassets */,
+				FA8997EB1A647936007DF3EA /* 120px-Merovingian_Bee.svg.png */,
 				FA8998001A64879D007DF3EA /* GalleryViewCell.swift */,
 			);
 			name = View;
@@ -224,9 +224,11 @@
 				TargetAttributes = {
 					FA2EE8E71A647103005D80B7 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 5SDHS833A5;
 					};
 					FA2EE8FC1A647104005D80B7 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 5SDHS833A5;
 						TestTargetID = FA2EE8E71A647103005D80B7;
 					};
 				};
@@ -423,6 +425,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -434,6 +438,7 @@
 				INFOPLIST_FILE = FilterBeeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FilterBee.app/FilterBee";
 			};
 			name = Debug;
@@ -442,6 +447,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -449,6 +456,7 @@
 				INFOPLIST_FILE = FilterBeeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FilterBee.app/FilterBee";
 			};
 			name = Release;
