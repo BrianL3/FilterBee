@@ -13,6 +13,7 @@
 		FA2EE8F51A647104005D80B7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA2EE8F41A647104005D80B7 /* Images.xcassets */; };
 		FA2EE8F81A647104005D80B7 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA2EE8F61A647104005D80B7 /* LaunchScreen.xib */; };
 		FA2EE9041A647104005D80B7 /* FilterBeeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2EE9031A647104005D80B7 /* FilterBeeTests.swift */; };
+		FA5BC0221A687DD500AA9F81 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA5BC0241A687DD500AA9F81 /* Localizable.strings */; };
 		FA8584EF1A65CA1500C787AE /* Thumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8584EE1A65CA1500C787AE /* Thumbnail.swift */; };
 		FA8997EC1A647936007DF3EA /* 120px-Merovingian_Bee.svg.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8997EB1A647936007DF3EA /* 120px-Merovingian_Bee.svg.png */; };
 		FA8997F41A647945007DF3EA /* image1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = FA8997EE1A647945007DF3EA /* image1.jpeg */; };
@@ -46,6 +47,9 @@
 		FA2EE8FD1A647104005D80B7 /* FilterBeeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FilterBeeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA2EE9021A647104005D80B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA2EE9031A647104005D80B7 /* FilterBeeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBeeTests.swift; sourceTree = "<group>"; };
+		FA5BC0231A687DD500AA9F81 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FA5BC0251A687E2A00AA9F81 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		FA5BC0261A687E2A00AA9F81 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FA8584EE1A65CA1500C787AE /* Thumbnail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Thumbnail.swift; sourceTree = "<group>"; };
 		FA8997EB1A647936007DF3EA /* 120px-Merovingian_Bee.svg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "120px-Merovingian_Bee.svg.png"; path = "Images.xcassets/120px-Merovingian_Bee.svg.png"; sourceTree = "<group>"; };
 		FA8997EE1A647945007DF3EA /* image1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image1.jpeg; sourceTree = "<group>"; };
@@ -166,6 +170,7 @@
 		FA8997FD1A6479DB007DF3EA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FA5BC0241A687DD500AA9F81 /* Localizable.strings */,
 				FA2EE8F61A647104005D80B7 /* LaunchScreen.xib */,
 				FA8997ED1A647945007DF3EA /* Stock-Images */,
 				FA2EE8F41A647104005D80B7 /* Images.xcassets */,
@@ -240,6 +245,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ar,
 			);
 			mainGroup = FA2EE8DF1A647103005D80B7;
 			productRefGroup = FA2EE8E91A647103005D80B7 /* Products */;
@@ -262,6 +268,7 @@
 				FA8997EC1A647936007DF3EA /* 120px-Merovingian_Bee.svg.png in Resources */,
 				FA8997F71A647945007DF3EA /* image4.jpeg in Resources */,
 				FA2EE8F51A647104005D80B7 /* Images.xcassets in Resources */,
+				FA5BC0221A687DD500AA9F81 /* Localizable.strings in Resources */,
 				FA8997F41A647945007DF3EA /* image1.jpeg in Resources */,
 				FA8997F61A647945007DF3EA /* image3.jpeg in Resources */,
 				FA8997F81A647945007DF3EA /* image5.jpeg in Resources */,
@@ -315,8 +322,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				FA2EE8F71A647104005D80B7 /* Base */,
+				FA5BC0251A687E2A00AA9F81 /* ar */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		FA5BC0241A687DD500AA9F81 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FA5BC0231A687DD500AA9F81 /* en */,
+				FA5BC0261A687E2A00AA9F81 /* ar */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
