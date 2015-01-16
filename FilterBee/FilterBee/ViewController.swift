@@ -211,6 +211,8 @@ class ViewController: UIViewController, ImageSelectedDelegate, UICollectionViewD
     if imageFromCam != nil {
       self.DelegatorDidSelectImage(imageFromCam! as UIImage)
     }
+    // and dismiss the ImagePickerController
+    self.dismissViewControllerAnimated(true, completion: nil)
   }
   
   func imagePickerControllerDidCancel(picker: UIImagePickerController) {
@@ -232,7 +234,9 @@ class ViewController: UIViewController, ImageSelectedDelegate, UICollectionViewD
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     let thumbnailAtRow = thumbnails[indexPath.row] as Thumbnail
     thumbnailAtRow.filterImage(thumbnailAtRow.originalImage, isThumbnail: false)
-    self.currentImage.image = thumbnailAtRow.filteredImage?
+    
+    self.currentImage.image = thumbnailAtRow.filteredImage
+    
     collectionView.reloadData()
     
     self.navigationItem.rightBarButtonItem = self.doneButton

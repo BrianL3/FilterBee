@@ -15,6 +15,7 @@ class PhotoAssetsViewController : UIViewController, UICollectionViewDataSource, 
   var assetCollection : PHAssetCollection!
   var imageManager = PHCachingImageManager()
   var destinationImageSize : CGSize!
+  var orientation : UIImageOrientation?
   
   var collectionView : UICollectionView!
   
@@ -51,7 +52,10 @@ class PhotoAssetsViewController : UIViewController, UICollectionViewDataSource, 
     let asset = fetchArray[indexPath.row] as PHAsset
     
     self.imageManager.requestImageForAsset(asset, targetSize: CGSize(width: 100.0, height: 100.0), contentMode: PHImageContentMode.AspectFill, options: nil) { (requestedImage, info) -> Void in
+      self.orientation = requestedImage.imageOrientation
+      println(self.orientation)
       cell.imageView.image = requestedImage
+      
     }
     
     return cell

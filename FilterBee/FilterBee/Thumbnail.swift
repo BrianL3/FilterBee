@@ -10,6 +10,7 @@ import UIKit
 
 class Thumbnail {
   var originalImage : UIImage!
+  var originalOrientation : UIImageOrientation!
   var shrunkImage : UIImage?
   var filteredImage : UIImage?
   var filteredShrunkImage : UIImage?
@@ -19,6 +20,7 @@ class Thumbnail {
   
   init(incomingImage : UIImage, filterName: String, operationQueue : NSOperationQueue, context : CIContext){
     self.originalImage = incomingImage
+    self.originalOrientation = incomingImage.imageOrientation
     self.filterName = filterName
     self.imageQueue = operationQueue
     self.gpuContext = context
@@ -37,7 +39,7 @@ class Thumbnail {
     if isThumbnail{
       self.filteredShrunkImage = UIImage(CGImage: end)
     }else{
-      self.filteredImage = UIImage(CGImage: end)
+      self.filteredImage = UIImage(CGImage: end, scale: 1.0, orientation: self.originalOrientation)
     }
   }
   
